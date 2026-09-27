@@ -23,12 +23,37 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+
+      - name: Build real CSS and JS assets
+        shell: python
+        run: |
+          import base64, gzip, pathlib, re
+
+          def unpack(prefix, output):
+              chunks = []
+              for path in sorted(pathlib.Path("bundle").glob(prefix + "*.js")):
+                  text = path.read_text(encoding="utf-8")
+                  match = re.search(r'\+"([A-Za-z0-9+/=]+)"\s*;?\s*$', text)
+                  if not match:
+                      raise RuntimeError(f"Could not read bundle chunk: {path}")
+                  chunks.append(match.group(1))
+              if not chunks:
+                  raise RuntimeError(f"No chunks found for {prefix}")
+              data = gzip.decompress(base64.b64decode("".join(chunks)))
+              pathlib.Path(output).write_bytes(data)
+              print(f"Wrote {output}: {len(data)} bytes")
+
+          unpack("css", "styles.css")
+          unpack("js", "script.js")
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
       - name: Upload static site
         uses: actions/upload-pages-artifact@v4
         with:
           path: .
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
