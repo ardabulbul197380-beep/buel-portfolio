@@ -28,7 +28,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          cat source/v5.part1 source/v5.part2 source/v5.part3 source/v5.part4 | base64 -d > /tmp/buel-v5.zip
+          cat source/v5.part1 source/v5.part2a source/v5.part2b source/v5.part3 source/v5.part4 | base64 -d > /tmp/buel-v5.zip
           echo "56a93e0f2357436a0d304d68cfda4602602c7777d8572b7f8713ee1cee6e659e  /tmp/buel-v5.zip" | sha256sum -c -
           rm -rf /tmp/buel-v5 _site
           mkdir -p /tmp/buel-v5 _site
