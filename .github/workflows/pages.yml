@@ -24,27 +24,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Build real CSS and JS assets
-        shell: python
+      - name: Rebuild original BUEL V5 site
+        shell: bash
         run: |
-          import base64, gzip, pathlib, re
-
-          def unpack(prefix, output):
-              chunks = []
-              for path in sorted(pathlib.Path("bundle").glob(prefix + "*.js")):
-                  text = path.read_text(encoding="utf-8")
-                  match = re.search(r'\+"([A-Za-z0-9+/=]+)"\s*;?\s*$', text)
-                  if not match:
-                      raise RuntimeError(f"Could not read bundle chunk: {path}")
-                  chunks.append(match.group(1))
-              if not chunks:
-                  raise RuntimeError(f"No chunks found for {prefix}")
-              data = gzip.decompress(base64.b64decode("".join(chunks)))
-              pathlib.Path(output).write_bytes(data)
-              print(f"Wrote {output}: {len(data)} bytes")
-
-          unpack("css", "styles.css")
-          unpack("js", "script.js")
+          set -euo pipefail
+          cat source/v5.part1 source/v5.part2 source/v5.part3 source/v5.part4 | base64 -d > /tmp/buel-v5.zip
+          echo "56a93e0f2357436a0d304d68cfda4602602c7777d8572b7f8713ee1cee6e659e  /tmp/buel-v5.zip" | sha256sum -c -
+          rm -rf /tmp/buel-v5 _site
+          mkdir -p /tmp/buel-v5 _site
+          unzip -q /tmp/buel-v5.zip -d /tmp/buel-v5
+          cp -a /tmp/buel-v5/buel-portfolio/. _site/
+          printf 'buelstudio.com\n' > _site/CNAME
+          test -s _site/styles.css
+          test -s _site/script.js
+          test -s _site/index.html
+          echo "styles.css: $(wc -c < _site/styles.css) bytes"
+          echo "script.js: $(wc -c < _site/script.js) bytes"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -52,7 +47,7 @@ jobs:
       - name: Upload static site
         uses: actions/upload-pages-artifact@v4
         with:
-          path: .
+          path: _site
 
       - name: Deploy to GitHub Pages
         id: deployment
