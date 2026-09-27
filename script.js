@@ -1,1 +1,34 @@
-(async()=>{const show=()=>{if(document.body)document.body.style.opacity='1'};const base=new URL('.',document.currentScript?.src||location.href).href;const load=(src)=>new Promise((resolve,reject)=>{const s=document.createElement('script');s.src=new URL(src,base).href;s.onload=resolve;s.onerror=reject;document.head.appendChild(s)});const gunzip=async(b64)=>{const bytes=Uint8Array.from(atob(b64),c=>c.charCodeAt(0));const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));return await new Response(stream).text()};try{for(const src of ['bundle/css1.js','bundle/css2.js','bundle/css3.js','bundle/js1.js','bundle/js2.js','bundle/js3.js'])await load(src);const css=await gunzip(window.__BUEL_CSS_B64||'');const style=document.createElement('style');style.textContent=css;document.head.appendChild(style);show();const js=await gunzip(window.__BUEL_JS_B64||'');(0,eval)(js)}catch(err){console.error('BUEL bundle load failed',err);show()}})();
+(async()=>{
+  const show=()=>{if(document.body)document.body.style.opacity='1'};
+  const base=new URL('.',document.currentScript?.src||location.href).href;
+  const load=(src)=>new Promise((resolve,reject)=>{
+    const s=document.createElement('script');
+    s.src=/^https?:\/\//.test(src)?src:new URL(src,base).href;
+    s.onload=resolve;s.onerror=reject;document.head.appendChild(s);
+  });
+  const decodeBytes=(b64)=>Uint8Array.from(atob(b64),c=>c.charCodeAt(0));
+  const gunzip=async(b64)=>{
+    const bytes=decodeBytes(b64);
+    if(!window.pako){
+      try{await load('https://cdn.jsdelivr.net/npm/pako@2.1.0/dist/pako.min.js')}catch(e){
+        if('DecompressionStream' in window){
+          const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
+          return await new Response(stream).text();
+        }
+        throw e;
+      }
+    }
+    return window.pako.ungzip(bytes,{to:'string'});
+  };
+  try{
+    for(const src of ['bundle/css1.js','bundle/css2.js','bundle/css3.js','bundle/js1.js','bundle/js2.js','bundle/js3.js'])await load(src);
+    const css=await gunzip(window.__BUEL_CSS_B64||'');
+    const style=document.createElement('style');style.textContent=css;document.head.appendChild(style);
+    show();
+    const js=await gunzip(window.__BUEL_JS_B64||'');
+    (0,eval)(js);
+  }catch(err){
+    console.error('BUEL bundle load failed',err);
+    show();
+  }
+})();
