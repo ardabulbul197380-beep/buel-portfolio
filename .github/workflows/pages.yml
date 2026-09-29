@@ -46,6 +46,10 @@ jobs:
               '<div><span>Start a project</span><button class="footer-inquiry" type="button" data-open-inquiry>Project inquiry ↗</button><a href="mailto:hello@buel.studio">hello@buel.studio</a></div>',
               '<div><span>Start a project</span><button class="footer-inquiry" type="button" data-open-inquiry>Project inquiry ↗</button><a href="https://wa.me/905462149022" target="_blank" rel="noopener noreferrer">WhatsApp · +90 546 214 90 22 ↗</a><a href="mailto:hello@buel.studio">hello@buel.studio</a></div>'
           )
+          s = s.replace(
+              '<div><span>Social</span><a href="#">Instagram</a><a href="#">LinkedIn</a></div>',
+              '<div><span>Social</span><a href="https://www.instagram.com/buelstudio2/" target="_blank" rel="noopener noreferrer">Instagram ↗</a><a href="#">LinkedIn</a></div>'
+          )
           p.write_text(s, encoding="utf-8")
           PY
           printf 'buelstudio.com\n' > _site/CNAME
