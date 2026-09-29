@@ -42,6 +42,10 @@ jobs:
           s = p.read_text(encoding="utf-8")
           s = s.replace('<link rel="stylesheet" href="./styles.css" />', '<link rel="stylesheet" href="./styles.css" />\n  <link rel="stylesheet" href="./form-enhancements.css" />')
           s = s.replace('<script src="./script.js"></script>', '<script src="./script.js"></script>\n  <script src="./form-enhancements.js"></script>')
+          s = s.replace(
+              '<div><span>Start a project</span><button class="footer-inquiry" type="button" data-open-inquiry>Project inquiry ↗</button><a href="mailto:hello@buel.studio">hello@buel.studio</a></div>',
+              '<div><span>Start a project</span><button class="footer-inquiry" type="button" data-open-inquiry>Project inquiry ↗</button><a href="https://wa.me/905462149022" target="_blank" rel="noopener noreferrer">WhatsApp · +90 546 214 90 22 ↗</a><a href="mailto:hello@buel.studio">hello@buel.studio</a></div>'
+          )
           p.write_text(s, encoding="utf-8")
           PY
           printf 'buelstudio.com\n' > _site/CNAME
