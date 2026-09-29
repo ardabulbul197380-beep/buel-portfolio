@@ -1,0 +1,18 @@
+.buel-lead-form{display:grid;gap:28px}
+.lead-grid{display:grid;gap:24px}
+.lead-grid-two{grid-template-columns:1fr 1fr}
+.buel-lead-form label{position:relative}
+.buel-lead-form label>small{display:block;margin-top:8px;color:var(--muted);font-size:10px;line-height:1.45}
+.buel-lead-form .brief-count{display:flex;justify-content:flex-end;font-variant-numeric:tabular-nums}
+.buel-lead-form .brief-count b{font-weight:400;color:var(--ink)}
+.buel-lead-form .submit-inquiry{transition:transform .25s ease,background .25s ease}
+.buel-lead-form .submit-inquiry:hover{transform:translateY(-2px);background:#242424}
+.buel-lead-form .submit-copy{font-size:13px}
+.buel-lead-form .submit-arrow{font-size:22px}
+.form-privacy{margin:-12px 0 0;color:var(--muted);font-size:9px;line-height:1.55;max-width:560px}
+.hp-field{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important}
+@media(max-width:600px){
+  .lead-grid-two{grid-template-columns:1fr}
+  .buel-lead-form{gap:23px}
+  .buel-lead-form .submit-inquiry{min-height:64px}
+}
