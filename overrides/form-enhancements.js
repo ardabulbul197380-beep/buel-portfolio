@@ -15,7 +15,7 @@
       timing: ['As soon as possible','1–2 months','2–4 months','Flexible'],
       budgetHelp: 'A rough range is enough — it helps us shape the right scope.',
       submit: 'Prepare project inquiry',
-      note: 'For now, this prepares a structured email in your mail app. Direct form delivery will be enabled once the receiving inbox is connected.',
+      note: 'This prepares an email draft in your mail app; complete sending there. Direct form delivery is not enabled yet.',
       subject: 'BUEL project inquiry',
       mail: ['Name / Brand','Email','Project type','Approx. budget','Target timing','Brief'],
       privacy: 'Your details are used only to reply to your project inquiry.'
@@ -27,7 +27,7 @@
       timing: ['Mümkün olan en kısa sürede','1–2 ay','2–4 ay','Esnek'],
       budgetHelp: 'Yaklaşık bir aralık yeterli — doğru kapsamı oluşturmamıza yardımcı olur.',
       submit: 'Proje talebini hazırla',
-      note: 'Şimdilik form, e-posta uygulamanda düzenli bir proje talebi hazırlar. Doğrudan form gönderimini, alıcı e-posta hesabını bağladığımızda açacağız.',
+      note: 'Bu işlem e-posta uygulamanda bir taslak hazırlar; gönderimi orada tamamla. Doğrudan form gönderimi henüz açık değil.',
       subject: 'BUEL proje talebi',
       mail: ['Ad / Marka','E-posta','Proje türü','Yaklaşık bütçe','Hedef zaman','Brief'],
       privacy: 'Paylaştığın bilgiler yalnızca proje talebine yanıt vermek için kullanılır.'

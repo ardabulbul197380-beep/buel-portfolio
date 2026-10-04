@@ -93,7 +93,8 @@ for path in pages:
         body = body.replace('<a href="mailto:', '<a href="https://wa.me/905462149022" target="_blank" rel="noopener noreferrer">WhatsApp · +90 546 214 90 22 ↗</a><a href="mailto:', 1)
         body = body.replace('<a href="#">Instagram</a><a href="#">LinkedIn</a>', '<a href="https://www.instagram.com/buelstudio2/" target="_blank" rel="noopener noreferrer">Instagram ↗</a>')
         body = body.replace('<form id="inquiryForm">', '<form id="inquiryForm" action="mailto:hello@buelstudio.com" method="post" enctype="text/plain">')
-        body = body.replace('This prepares an email in your mail app. No form data is stored on this site.', 'This opens your mail app; it does not send a message. This inbox is not yet confirmed active. Please use WhatsApp for now.')
+        fallback_note = 'This prepares an email draft in your mail app; complete sending there. Direct form delivery is not enabled yet.' if contact['inboxVerified'] else 'This opens your mail app; it does not send a message. This inbox is not yet confirmed active. Please use WhatsApp for now.'
+        body = body.replace('This prepares an email in your mail app. No form data is stored on this site.', fallback_note)
         tags.append('<noscript><style>.reveal{opacity:1;transform:none}.intro{display:none}</style></noscript>')
     # Case-study bodies are deliberately unchanged, including their scripts and copy.
     path.write_text(head + '\n  ' + '\n  '.join(tags) + '\n</head>' + body)

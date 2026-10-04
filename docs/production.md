@@ -14,7 +14,7 @@ The existing `CNAME` stays `buelstudio.com`. At implementation time the live HTT
 
 ## Contact
 
-`site-config.json` deliberately has `inboxVerified: false` and `endpoint: null`. The homepage form prepares an email draft to `hello@buelstudio.com`, says that nothing has been sent, and recommends the existing WhatsApp contact while inbox activation is unconfirmed. Form values are kept in the page, including across EN/TR switches; they are not stored by the site.
+`hello@buelstudio.com` received the delivery test, confirmed by the user on 2026-10-04. `site-config.json` has `inboxVerified: true` and `endpoint: null`. The homepage form prepares an email draft to this address and instructs the visitor to complete sending in their mail app. Direct form delivery remains disabled until a real endpoint is connected. Form values are kept in the page, including across EN/TR switches; they are not stored by the site.
 
 To enable direct delivery, first confirm that the inbox receives mail. Supply a real HTTPS JSON endpoint and set `inboxVerified: true`. GitHub Pages is static: delivery needs a separate backend or form provider adapter. Do not put API keys or email-service credentials in the JSON configuration or browser code.
 

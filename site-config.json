@@ -2,7 +2,7 @@
   "origin": "https://www.buelstudio.com",
   "contact": {
     "email": "hello@buelstudio.com",
-    "inboxVerified": false,
+    "inboxVerified": true,
     "endpoint": null
   },
   "analytics": {
