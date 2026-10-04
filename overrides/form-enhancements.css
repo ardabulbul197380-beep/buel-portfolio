@@ -15,4 +15,13 @@
   .lead-grid-two{grid-template-columns:1fr}
   .buel-lead-form{gap:23px}
   .buel-lead-form .submit-inquiry{min-height:64px}
-}
+}.form-status{margin:0;font-size:13px;line-height:1.6}
+.form-status:empty{display:none}
+.form-status[data-state="error"]{color:#9c3434}
+.form-alternatives{display:flex;flex-wrap:wrap;gap:12px 24px;font-size:12px}
+.form-alternatives a,.email-fallback{min-height:44px;display:inline-flex;align-items:center;text-decoration:underline;text-underline-offset:4px}
+.email-fallback{border:0;background:none;padding:0;color:inherit;cursor:pointer;font:inherit}
+.email-fallback[hidden]{display:none}
+.buel-lead-form [disabled]{opacity:.6;cursor:wait}
+.buel-lead-form .form-privacy{font-size:11px;line-height:1.6}
+.buel-lead-form .form-note{font-size:12px;line-height:1.6}

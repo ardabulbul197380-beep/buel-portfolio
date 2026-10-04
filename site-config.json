@@ -1,0 +1,11 @@
+{
+  "origin": "https://www.buelstudio.com",
+  "contact": {
+    "email": "hello@buelstudio.com",
+    "inboxVerified": false,
+    "endpoint": null
+  },
+  "analytics": {
+    "plausibleScriptUrl": null
+  }
+}

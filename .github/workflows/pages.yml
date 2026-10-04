@@ -24,40 +24,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Rebuild original BUEL V5 site
-        shell: bash
-        run: |
-          set -euo pipefail
-          cat source/v5.part1a source/v5.part1b source/v5.part2a source/v5.part2b source/v5.part3 source/v5.part4 | base64 -d > /tmp/buel-v5.zip
-          echo "56a93e0f2357436a0d304d68cfda4602602c7777d8572b7f8713ee1cee6e659e  /tmp/buel-v5.zip" | sha256sum -c -
-          rm -rf /tmp/buel-v5 _site
-          mkdir -p /tmp/buel-v5 _site
-          unzip -q /tmp/buel-v5.zip -d /tmp/buel-v5
-          cp -a /tmp/buel-v5/buel-portfolio/. _site/
-          cp overrides/form-enhancements.js _site/form-enhancements.js
-          cp overrides/form-enhancements.css _site/form-enhancements.css
-          python - <<'PY'
-          from pathlib import Path
-          p = Path("_site/index.html")
-          s = p.read_text(encoding="utf-8")
-          s = s.replace('<link rel="stylesheet" href="./styles.css" />', '<link rel="stylesheet" href="./styles.css" />\n  <link rel="stylesheet" href="./form-enhancements.css" />')
-          s = s.replace('<script src="./script.js"></script>', '<script src="./script.js"></script>\n  <script src="./form-enhancements.js"></script>')
-          s = s.replace(
-              '<div><span>Start a project</span><button class="footer-inquiry" type="button" data-open-inquiry>Project inquiry ↗</button><a href="mailto:hello@buel.studio">hello@buel.studio</a></div>',
-              '<div><span>Start a project</span><button class="footer-inquiry" type="button" data-open-inquiry>Project inquiry ↗</button><a href="https://wa.me/905462149022" target="_blank" rel="noopener noreferrer">WhatsApp · +90 546 214 90 22 ↗</a><a href="mailto:hello@buel.studio">hello@buel.studio</a></div>'
-          )
-          s = s.replace(
-              '<div><span>Social</span><a href="#">Instagram</a><a href="#">LinkedIn</a></div>',
-              '<div><span>Social</span><a href="https://www.instagram.com/buelstudio2/" target="_blank" rel="noopener noreferrer">Instagram ↗</a><a href="#">LinkedIn</a></div>'
-          )
-          p.write_text(s, encoding="utf-8")
-          PY
-          printf 'buelstudio.com\n' > _site/CNAME
-          test -s _site/styles.css
-          test -s _site/script.js
-          test -s _site/index.html
-          echo "styles.css: $(wc -c < _site/styles.css) bytes"
-          echo "script.js: $(wc -c < _site/script.js) bytes"
+      - name: Build production site
+        run: python3 scripts/build.py
+
+      - name: Verify production output
+        run: python3 scripts/verify.py
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

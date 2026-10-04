@@ -1,0 +1,38 @@
+/* Homepage only: preserve the V5 palette, typography and case-study styling. */
+body[data-page="home"] :is(a,button,input,select,textarea):focus-visible{outline:2px solid #8579bd;outline-offset:5px}
+body[data-page="home"] :is(.nav a,.hero-bottom a,.contact-bottom a){text-underline-offset:6px}
+body[data-page="home"] :is(.nav a,.hero-bottom a,.contact-bottom a):hover{text-decoration:underline;text-decoration-thickness:1px}
+body[data-page="home"] .hero-title span{transition:transform .55s cubic-bezier(.2,.7,.2,1)}
+body[data-page="home"] :is(.lang-toggle,.menu-contact,.footer-inquiry,.inquiry-head button){min-height:44px;display:inline-flex;align-items:center}
+body[data-page="home"] .contact-bottom a{min-height:36px;display:inline-flex;align-items:center}
+body[data-page="home"] .inquiry-panel{overscroll-behavior:contain;padding-bottom:max(32px,env(safe-area-inset-bottom));scroll-padding-block:24px}
+body[data-page="home"] .inquiry-panel :is(input,select,textarea){font-size:max(16px,1.1rem);min-height:48px}
+body[data-page="home"] .inquiry-panel textarea{line-height:1.55}
+@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+  body[data-page="home"] .feature-link .round-link{transition:transform .35s ease,background .35s ease,color .35s ease}
+  body[data-page="home"] .feature-link:hover .round-link{transform:translate(3px,-3px)}
+  body[data-page="home"] .service-mark{transition:transform .3s ease}
+  body[data-page="home"] .service-row:hover .service-mark{transform:translate(3px,-3px)}
+}
+@media(max-width:600px){
+  body[data-page="home"] .section-pad{width:100%;margin-inline:0;padding-left:20px;padding-right:20px}
+  body[data-page="home"] .hero{min-height:calc(88svh - 74px);gap:24px;padding-top:26px;padding-bottom:28px}
+  body[data-page="home"] .hero-top{font-size:9px;gap:16px;line-height:1.6}
+  body[data-page="home"] .hero-bottom{align-items:flex-start;gap:20px}
+  body[data-page="home"] .hero-bottom a{font-size:10px;line-height:1.6;min-height:44px;max-width:34%}
+  body[data-page="home"] .work-intro{padding-top:80px;padding-bottom:50px}
+  body[data-page="home"] .section-label{margin-bottom:36px}
+  body[data-page="home"] .contact-inner{min-height:70svh;padding-top:28px;padding-bottom:32px;gap:24px}
+  body[data-page="home"] .contact-title{font-size:clamp(36px,11.5vw,72px);line-height:.95;overflow-wrap:normal}
+  body[data-page="home"] .contact-bottom{grid-template-columns:1fr;gap:26px}
+  body[data-page="home"] .contact-bottom>div:nth-child(2){align-items:flex-start}
+  body[data-page="home"] .contact-bottom a{min-height:44px}
+  body[data-page="home"] .inquiry-panel h2{font-size:clamp(42px,12vw,62px);margin:32px 0;line-height:.98}
+  body[data-page="home"] .inquiry-panel{padding-left:20px;padding-right:20px}
+}
+@media(prefers-reduced-motion:reduce){
+  body[data-page="home"] *,body[data-page="home"] *::before,body[data-page="home"] *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  body[data-page="home"] .intro{display:none}
+  body[data-page="home"] .hero-title span{transform:none!important}
+  body[data-page="home"] .cursor{display:none}
+}

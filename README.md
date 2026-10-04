@@ -42,3 +42,7 @@ python -m http.server 8000
 ```
 
 Then open `http://localhost:8000`.
+
+## Production build and configuration
+
+GitHub Pages publishes the V5 archive plus reviewed production enhancements through `scripts/build.py`. For the current build instructions, canonical/custom-domain behavior, contact endpoint contract and disabled-by-default analytics setup, see [Production configuration](docs/production.md). Do not edit the legacy root wrappers to change the deployed site.
