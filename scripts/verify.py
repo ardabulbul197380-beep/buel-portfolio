@@ -53,8 +53,13 @@ with zipfile.ZipFile(io.BytesIO(archive)) as z:
         if rel == '404.html':
             assert head.meta['robots'] == 'noindex, follow'
 urls = [el.text for el in ET.parse(OUT / 'sitemap.xml').iter('{http://www.sitemaps.org/schemas/sitemap/0.9}loc')]
-assert len(urls) == 5 and len(set(urls)) == 5
+assert len(urls) == 7 and len(set(urls)) == 7
 assert ORIGIN + '/' in urls and not any('404' in url for url in urls)
+for slug in ('gizlilik', 'destek'):
+    assert ORIGIN + '/sabit/' + slug + '.html' in urls
+    page = (OUT / 'sabit' / (slug + '.html')).read_text()
+    assert 'hello@buelstudio.com' in page
+    assert 'YAYIN ÖNCESİ' not in page
 assert (OUT / 'CNAME').read_bytes() == (ROOT / 'CNAME').read_bytes()
 assert 'Sitemap: ' + ORIGIN + '/sitemap.xml' in (OUT / 'robots.txt').read_text()
 manifest = json.loads((OUT / 'site.webmanifest').read_text())
