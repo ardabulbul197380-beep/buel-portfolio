@@ -38,6 +38,13 @@ with zipfile.ZipFile(io.BytesIO(archive)) as z:
 shutil.copytree(ROOT / 'assets', OUT / 'assets', dirs_exist_ok=True)
 for p in (ROOT / 'overrides').iterdir():
     shutil.copy2(p, OUT / p.name)
+# Standalone SABİT legal/support pages are source-controlled alongside the site.
+# Copy them before the shared metadata/sitemap pass below.
+for p in (ROOT / 'pages').rglob('*'):
+    if p.is_file():
+        target = OUT / p.relative_to(ROOT / 'pages')
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(p, target)
 shutil.copy2(ROOT / 'CNAME', OUT / 'CNAME')
 (OUT / '.nojekyll').touch()
 (OUT / 'site-config.js').write_text('window.BUEL_CONFIG = Object.freeze(' + json.dumps(config) + ');\n')
@@ -103,4 +110,4 @@ urls = [origin + ('/' if p.name == 'index.html' else '/' + p.relative_to(OUT).as
 (OUT / 'robots.txt').write_text('User-agent: *\nAllow: /\n\nSitemap: ' + origin + '/sitemap.xml\n')
 (OUT / 'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(f'  <url><loc>{u}</loc></url>\n' for u in urls) + '</urlset>\n')
 (OUT / 'site.webmanifest').write_text(json.dumps({'id':'/', 'name':'BUEL Studio', 'short_name':'BUEL', 'start_url':'/', 'scope':'/', 'display':'browser', 'background_color':'#f8f7f4', 'theme_color':'#f8f7f4', 'icons':[{'src':f'/assets/icon-{n}.png','sizes':f'{n}x{n}','type':'image/png','purpose':'any'} for n in [192,512]]}, indent=2) + '\n')
-print('Built six pages with production metadata; preserved all case-study bodies.')
+print(f'Built {len(pages)} pages with production metadata; preserved all case-study bodies.')
